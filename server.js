@@ -40,12 +40,11 @@ res.json(
 app.get("/api/timestamp/:date_string", function(req, res){
   let dateRequested = req.params.date_string;
   let valuePassedIn = new Date(dateRequested);
-  let unixValuePassedIn = new Date(parseInt(dateRequested));
+      let unixValuePassedIn = new Date(parseInt(dateRequested));
 
 
   if (valuePassedIn === "Invalid Date" || unixValuePassedIn ==="Invalid Date"){
-    res.json({"unix" : null, 
-      "utc" : "Invalid Date" });
+    res.json({"error" : "Invalid Date" });
   } else if (parseInt(dateRequested) > 10000){
     res.json({
       "unix": unixValuePassedIn.getTime(),
