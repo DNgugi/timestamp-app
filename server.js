@@ -24,9 +24,31 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+//Endpoint for empty request
+app.get("/api/timestamp", function(req, res){
+  let currentDate = new Date();
+res.json(
+  {
+    "unix": currentDate.getTime(),
+    "utc": currentDate.toUTCString()
+  }
+);
+
+});
+
+//Endpoint with request
 app.get("/api/timestamp/:date_string", function(req, res){
   let dateRequested = req.params.date_string;
-  res.json({"error" : "Invalid Date" });
+  let valuePassedIn = new Date(dateRequested);
+  if (valuePassedIn === "Invalid Date"){
+    res.json({"error" : "Invalid Date" });
+  } else {
+    res.json({
+      "unix": valuePassedIn.getTime(),
+      "utc": valuePassedIn.toUTCString()
+    });
+  }
+  
 });
 
 
