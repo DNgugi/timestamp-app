@@ -39,19 +39,16 @@ res.json(
 //Endpoint with request
 app.get("/api/timestamp/:date_string", function(req, res){
   let dateRequested = req.params.date_string;
-  
+  let valuePassedIn = new Date(dateRequested);
 
-  if (parseInt(dateRequested) > 1){
+  if (valuePassedIn === "Invalid Date"){
+    res.json({"error" : "Invalid Date" });
+  } else if (parseInt(dateRequested) > 10000){
     let unixValuePassedIn = new Date(parseInt(dateRequested));
     res.json({
       "unix": unixValuePassedIn.getTime(),
       "utc": unixValuePassedIn.toUTCString()
     });
-  } 
-  
-  let valuePassedIn = new Date(dateRequested);
-  if (valuePassedIn === "Invalid Date"){
-    res.json({"error" : "Invalid Date" });
   } else {
     res.json({
       "unix": valuePassedIn.getTime(),
